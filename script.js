@@ -11,13 +11,14 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
     const ticketID = `TICKET-${Date.now()}`;
 
     // Send email using EmailJS
-    emailjs.init('22_gz5VmoMZyx76R3'); // Replace with your EmailJS Public Key
-    emailjs.send('service_id', 'template_id', {
+    emailjs.init('6-DmGFjZysn7gXJUu'); // Replace with your EmailJS Public Key
+    emailjs.send('service_bua5s5d', 'template_63amg7s', {
         name: name,
         email: email,
         priority: priority,
         description: description,
         ticketID: ticketID,
+        to_email: email, // Customer's email
     }).then(() => {
         document.getElementById('confirmationMessage').textContent = `Your ticket (ID: ${ticketID}) has been submitted successfully!`;
     }).catch((error) => {
