@@ -11,7 +11,7 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
     const ticketID = `TICKET-${Date.now()}`;
 
     // Send email using EmailJS
-    emailjs.init('2fjxs_QlZqz8uskuJ'); // Replace with your EmailJS Public Key
+    emailjs.init('2fjxs_QlZqz8uskuJ');
     emailjs.send('service_bua5s5d', 'template_63amg7s', {
         name: name,
         email: email,
