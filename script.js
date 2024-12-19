@@ -18,7 +18,6 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
         priority: priority,
         description: description,
         ticketID: ticketID,
-        to_email: email, // Customer's email
     }).then(() => {
         document.getElementById('confirmationMessage').textContent = `Your ticket (ID: ${ticketID}) has been submitted successfully!`;
     }).catch((error) => {
