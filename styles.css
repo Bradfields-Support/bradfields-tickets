@@ -61,6 +61,12 @@ form button:hover {
 
 #confirmationMessage {
     margin-top: 20px;
-    color: green;
+    padding: 15px;
+    background-color: #e0ffe0; /* Light green background */
+    border: 1px solid #008000; /* Green border */
+    border-radius: 5px;
+    color: #008000; /* Dark green text */
     font-weight: bold;
+    text-align: center;
 }
+
