@@ -19,12 +19,15 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
         description: description,
         ticketID: ticketID,
     }).then(() => {
-        document.getElementById('confirmationMessage').textContent = `Your ticket (ID: ${ticketID}) has been submitted successfully!`;
+        document.getElementById('confirmationMessage').innerHTML = `
+            <p>Your ticket has been submitted successfully!</p>
+            <p><strong>Ticket ID:</strong> ${ticketID}</p>
+        `;
+
+        // Clear the form fields
+        document.getElementById('ticketForm').reset();
     }).catch((error) => {
         document.getElementById('confirmationMessage').textContent = 'There was an error submitting your ticket. Please try again.';
         console.error('Error:', error);
     });
-
-    // Optionally log ticket to an external database
-    // TODO: Implement Google Sheets API or another storage solution
 });
