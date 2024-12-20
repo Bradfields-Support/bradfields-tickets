@@ -14,9 +14,9 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
     const ticketID = `TICKET-${Date.now()}`;
 
     // Airtable API details
-    const airtableAccessToken = "patDtILaAyMMUDILi.439e0788f2738609d6249440fc11a949fda946abcb99cd2685199e49204d64c2"; // Replace with your PAT
+    const airtableAccessToken = "pat39bI0oBsxgy0OW.b65ea0cf5b97df37deb6ce016f801895fea9df73425c572ff18dc21afc182079"; // Replace with your PAT
     const airtableBaseId = "appHqKvilHZhdU2DW"; // Replace with your Base ID
-    const airtableTableName = "Ticket Support"; // Replace with your table name
+    const airtableTableName = "Support Tickets"; // Replace with your table name
 
     // Show loading spinner and reset confirmation message
     const confirmationMessage = document.getElementById('confirmationMessage');
