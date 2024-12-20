@@ -15,14 +15,14 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
 
     // Airtable API details
     const airtableAccessToken = "patDtILaAyMMUDILi.439e0788f2738609d6249440fc11a949fda946abcb99cd2685199e49204d64c2"; // Replace with your PAT
-    const airtableBaseId = "appHqKvilHZhdU2DW/tbl5MFY4vjOeeu85n"; // Replace with your Base ID
+    const airtableBaseId = "appHqKvilHZhdU2DW"; // Replace with your Base ID
     const airtableTableName = "Support Tickets"; // Replace with your table name
 
     // Show loading spinner and reset confirmation message
     const confirmationMessage = document.getElementById('confirmationMessage');
     const loadingSpinner = document.getElementById('loadingSpinner');
     loadingSpinner.classList.add('active');
-    confirmationMessage.textContent = "Submitting your ticket...";
+    confirmationMessage.textContent = "";
     confirmationMessage.style.color = "#000";
 
     // Send data to Airtable
@@ -58,6 +58,7 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
         })
         .then(() => {
             // Success: Both Airtable and EmailJS succeeded
+            loadingSpinner.classList.remove('active');
             confirmationMessage.textContent = `Your ticket (ID: ${ticketID}) has been submitted successfully!`;
             confirmationMessage.style.color = "green";
 
@@ -68,11 +69,8 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
         .catch(error => {
             // Handle any errors from Airtable or EmailJS
             console.error('Error:', error);
+            loadingSpinner.classList.remove('active');
             confirmationMessage.textContent = "There was an error submitting your ticket. Please try again.";
             confirmationMessage.style.color = "red";
-        })
-        .finally(() => {
-            // Hide spinner once the process is complete
-            loadingSpinner.classList.remove('active');
         });
 });
