@@ -1,6 +1,6 @@
 emailjs.init('2fjxs_QlZqz8uskuJ'); // Initialize EmailJS
 
-document.getElementById('ticketForm').addEventListener('submit', function (e) {
+document.getElementById('ticketForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
     // Get form values
@@ -8,6 +8,7 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
     const email = document.getElementById('email').value;
     const priority = document.getElementById('priority').value;
     const description = document.getElementById('description').value;
+    const attachment = document.getElementById('attachment').files[0]; // File input
 
     // Generate a unique ticket ID
     const ticketID = `TICKET-${Date.now()}`;
@@ -19,13 +20,26 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
     confirmationMessage.textContent = "Submitting your ticket...";
     confirmationMessage.style.color = "#000";
 
-    // Send email using EmailJS
-    emailjs.send('service_bua5s5d', 'template_63amg7s', {
-        name: name,
-        email: email,
-        priority: priority,
-        description: description,
-        ticketID: ticketID
+    // Prepare EmailJS data
+    const formData = new FormData();
+    formData.append('service_id', 'service_bua5s5d'); // Replace with your EmailJS service ID
+    formData.append('template_id', 'template_63amg7s'); // Replace with your EmailJS template ID
+    formData.append('user_id', '2fjxs_QlZqz8uskuJ'); // Replace with your EmailJS user ID
+    formData.append('template_params[name]', name);
+    formData.append('template_params[email]', email);
+    formData.append('template_params[priority]', priority);
+    formData.append('template_params[description]', description);
+    formData.append('template_params[ticketID]', ticketID);
+
+    // Add attachment if available
+    if (attachment) {
+        formData.append('files.attachment', attachment);
+    }
+
+    // Send the email using EmailJS
+    fetch('https://api.emailjs.com/api/v1.0/email/send-form', {
+        method: 'POST',
+        body: formData,
     })
         .then(() => {
             // Success: Email sent
