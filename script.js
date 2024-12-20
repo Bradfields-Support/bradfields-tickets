@@ -20,8 +20,7 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
 
     // Show loading spinner and reset confirmation message
     const confirmationMessage = document.getElementById('confirmationMessage');
-    const loadingSpinner = document.getElementById('loadingSpinner');
-    loadingSpinner.classList.add('active');
+    const loadingSpinner = document.getElementById('loadingSpinner').classList.add('active');
     confirmationMessage.textContent = "Submitting your ticket...";
     confirmationMessage.style.color = "#000";
 
