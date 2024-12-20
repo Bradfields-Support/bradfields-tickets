@@ -112,6 +112,21 @@ form button:hover {
     h1 {
         font-size: 1.5em;
     }
+footer {
+    background-color: #004085;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 0.9em;
 }
 
+footer a {
+    color: #ffd700; /* Golden yellow for links */
+    text-decoration: none;
 }
+
+footer a:hover {
+    text-decoration: underline;
+}
+
