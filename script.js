@@ -1,5 +1,4 @@
-// Initialize EmailJS (once, at the top)
-emailjs.init('2fjxs_QlZqz8uskuJ');
+emailjs.init('2fjxs_QlZqz8uskuJ'); // Initialize EmailJS
 
 document.getElementById('ticketForm').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -13,59 +12,24 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
     // Generate a unique ticket ID
     const ticketID = `TICKET-${Date.now()}`;
 
-    // Airtable API details
-    const airtableAccessToken = "pat39bI0oBsxgy0OW.6a20399dc896fc8658a429dc537a6b145baa070911935ac9da833c8ecd83c4b1"; // Replace with your PAT
-    const airtableBaseId = "appHqKvilHZhdU2DW"; // Replace with your Base ID
-    const airtableTableName = "Support Tickets"; // Replace with your table name
-
     // Show loading spinner and reset confirmation message
     const confirmationMessage = document.getElementById('confirmationMessage');
     const loadingSpinner = document.getElementById('loadingSpinner');
     loadingSpinner.classList.add('active');
-    confirmationMessage.textContent = "";
+    confirmationMessage.textContent = "Submitting your ticket...";
     confirmationMessage.style.color = "#000";
 
-    // Send data to Airtable
-    fetch(`https://api.airtable.com/v0/${airtableBaseId}/${airtableTableName}`, {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${airtableAccessToken}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            fields: {
-                "Ticket ID": ticketID,
-                "Name": name,
-                "Email": email,
-                "Priority": priority,
-                "Description": description,
-                "Submission Date": new Date().toISOString()
-            }
-        })
+    // Send email using EmailJS
+    emailjs.send('service_bua5s5d', 'template_63amg7s', {
+        name: name,
+        email: email,
+        priority: priority,
+        description: description,
+        ticketID: ticketID
     })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.error) {
-                console.error("Airtable Error:", data.error);
-                confirmationMessage.textContent = "There was an error logging the ticket to Airtable.";
-                confirmationMessage.style.color = "red";
-                loadingSpinner.classList.remove('active');
-                return;
-            }
-
-            console.log("Ticket logged successfully in Airtable:", data);
-
-            // Send email using EmailJS
-            return emailjs.send('service_bua5s5d', 'template_63amg7s', {
-                name: name,
-                email: email,
-                priority: priority,
-                description: description,
-                ticketID: ticketID
-            });
-        })
         .then(() => {
-            // Success: Both Airtable and EmailJS succeeded
+            // Success: Email sent
+            loadingSpinner.classList.remove('active');
             confirmationMessage.textContent = `Your ticket (ID: ${ticketID}) has been submitted successfully!`;
             confirmationMessage.style.color = "green";
 
@@ -74,13 +38,10 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
             }, 3000); // 3-second delay
         })
         .catch((error) => {
-            // Handle any errors from Airtable or EmailJS
-            console.error("Error:", error);
+            // Handle EmailJS errors
+            loadingSpinner.classList.remove('active');
+            console.error('Error sending email:', error);
             confirmationMessage.textContent = "There was an error submitting your ticket. Please try again.";
             confirmationMessage.style.color = "red";
-        })
-        .finally(() => {
-            // Hide spinner once the process is complete
-            loadingSpinner.classList.remove('active');
         });
 });
