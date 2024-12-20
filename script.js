@@ -25,52 +25,31 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
     confirmationMessage.textContent = "";
     confirmationMessage.style.color = "#000";
 
-    // Send data to Airtable
-    fetch(`https://api.airtable.com/v0/${airtableBaseId}/${airtableTableName}`, {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${airtableAccessToken}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            fields: {
-                "Ticket ID": ticketID,
-                "Name": name,
-                "Email": email,
-                "Priority": priority,
-                "Description": description,
-                "Submission Date": new Date().toISOString()
-            }
-        })
+    // Send data to Airtablefetch(`https://api.airtable.com/v0/${airtableBaseId}/${airtableTableName}`, {
+    method: "POST",
+    headers: {
+        "Authorization": `Bearer ${airtableAccessToken}`,
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        fields: {
+            "Ticket ID": ticketID,
+            "Name": name,
+            "Email": email,
+            "Priority": priority,
+            "Description": description,
+            "Submission Date": new Date().toISOString()
+        }
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Ticket logged successfully in Airtable:', data);
-
-            // Send email using EmailJS
-            return emailjs.send('service_bua5s5d', 'template_63amg7s', {
-                name: name,
-                email: email,
-                priority: priority,
-                description: description,
-                ticketID: ticketID,
-            });
-        })
-        .then(() => {
-            // Success: Both Airtable and EmailJS succeeded
-            loadingSpinner.classList.remove('active');
-            confirmationMessage.textContent = `Your ticket (ID: ${ticketID}) has been submitted successfully!`;
-            confirmationMessage.style.color = "green";
-
-            setTimeout(() => {
-                window.location.href = "thank-you.html?ticketID=" + encodeURIComponent(ticketID);
-            }, 3000); // 3-second delay
-        })
-        .catch(error => {
-            // Handle any errors from Airtable or EmailJS
-            console.error('Error:', error);
-            loadingSpinner.classList.remove('active');
-            confirmationMessage.textContent = "There was an error submitting your ticket. Please try again.";
-            confirmationMessage.style.color = "red";
-        });
+})
+.then(response => response.json())
+.then(data => {
+    if (data.error) {
+        console.error("Airtable Error:", data.error);
+    } else {
+        console.log("Ticket logged successfully in Airtable:", data);
+    }
+})
+.catch(error => {
+    console.error("Network or Fetch Error:", error);
 });
