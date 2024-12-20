@@ -14,8 +14,8 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
     const ticketID = `TICKET-${Date.now()}`;
 
     // Airtable API details
-    const airtableAccessToken = "your-personal-access-token"; // Replace with your PAT
-    const airtableBaseId = "your-base-id"; // Replace with your Base ID
+    const airtableAccessToken = "patDtILaAyMMUDILi.439e0788f2738609d6249440fc11a949fda946abcb99cd2685199e49204d64c2"; // Replace with your PAT
+    const airtableBaseId = "appHqKvilHZhdU2DW/tbl5MFY4vjOeeu85n"; // Replace with your Base ID
     const airtableTableName = "SupportTickets"; // Replace with your table name
 
     // Show loading spinner and reset confirmation message
@@ -27,22 +27,22 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
 
     // Send data to Airtable
     fetch(`https://api.airtable.com/v0/${airtableBaseId}/${airtableTableName}`, {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${airtableAccessToken}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            fields: {
-                "Ticket ID": ticketID,
-                "Name": name,
-                "Email": email,
-                "Priority": priority,
-                "Description": description,
-                "Submission Date": new Date().toISOString()
-            }
-        })
+    method: "POST",
+    headers: {
+        "Authorization": `Bearer ${airtableAccessToken}`, // Use PAT for authentication
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        fields: {
+            "Ticket ID": ticketID,
+            "Name": name,
+            "Email": email,
+            "Priority": priority,
+            "Description": description,
+            "Submission Date": new Date().toISOString()
+        }
     })
+})
         .then(response => response.json())
         .then(data => {
             console.log('Ticket logged successfully in Airtable:', data);
