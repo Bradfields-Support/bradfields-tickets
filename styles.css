@@ -14,7 +14,7 @@ header {
 }
 
 header .logo {
-    width: 400px; /* Adjust as needed */
+    width: 300px; /* Adjust as needed */
     height: auto; /* Maintain aspect ratio */
     margin: 0 auto; /* Center the logo */
     display: block; /* Ensure proper alignment */
