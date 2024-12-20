@@ -31,14 +31,18 @@
 
             <button type="submit">Submit Ticket</button>
         </form>
+
+        <!-- Add the loading spinner element -->
+        <div id="loadingSpinner" class="hidden">Submitting your ticket, please wait...</div>
+
         <div id="confirmationMessage"></div>
     </main>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function(){
-      emailjs.init("2fjxs_QlZqz8uskuJ");
-    })();
-  </script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("2fjxs_QlZqz8uskuJ");
+        })();
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
