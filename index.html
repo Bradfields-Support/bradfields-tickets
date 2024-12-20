@@ -29,6 +29,10 @@
             <label for="description">Issue Description:</label>
             <textarea id="description" name="description" rows="5" required></textarea>
 
+            <!-- File upload field -->
+            <label for="attachment">Upload Image or Video (optional):</label>
+            <input type="file" id="attachment" name="attachment" accept="image/*,video/*">
+
             <button type="submit">Submit Ticket</button>
         </form>
 
@@ -37,6 +41,14 @@
 
         <div id="confirmationMessage"></div>
     </main>
+
+    <footer>
+        <p>Contact us at: <a href="mailto:support@bradfields.com">support@bradfields.com</a></p>
+        <p>Find Us: 2306 SW Adams St, Peoria, IL 61602</p>
+        <p>Phone: <a href="tel:8007477453">800-747-7453</a></p>
+        <p>Fax: 309-672-1756</p>
+    </footer>
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
