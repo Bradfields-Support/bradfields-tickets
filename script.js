@@ -16,7 +16,7 @@ document.getElementById('ticketForm').addEventListener('submit', function (e) {
     // Airtable API details
     const airtableAccessToken = "patDtILaAyMMUDILi.439e0788f2738609d6249440fc11a949fda946abcb99cd2685199e49204d64c2"; // Replace with your PAT
     const airtableBaseId = "appHqKvilHZhdU2DW"; // Replace with your Base ID
-    const airtableTableName = "Support Tickets"; // Replace with your table name
+    const airtableTableName = "Ticket Support"; // Replace with your table name
 
     // Show loading spinner and reset confirmation message
     const confirmationMessage = document.getElementById('confirmationMessage');
