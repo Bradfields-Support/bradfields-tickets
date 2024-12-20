@@ -8,36 +8,20 @@
 </head>
 <body>
     <main>
-        <div id="thankYouMessage">
-            <h1>Thank You!</h1>
-            <p>Your support ticket has been submitted successfully.</p>
-            <p id="ticketIDDisplay"></p>
-            <p>Please note your ticket ID for future reference.</p>
-        </div>
-        <button id="backToHome">Back to Home</button>
+        <h1>Thank You!</h1>
+        <p>Your support ticket has been submitted successfully.</p>
+        <p><strong>Ticket ID:</strong> <span id="ticketID"></span></p>
+        <a href="index.html" class="button">Submit Another Ticket</a>
     </main>
     <script>
-        // Function to extract query parameters
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
-        // Get the ticketID from the URL
-        const ticketID = getQueryParam('ticketID');
-
-        // Display the ticketID on the page
-        const ticketIDDisplay = document.getElementById('ticketIDDisplay');
+        // Extract the ticket ID from the query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const ticketID = urlParams.get('ticketID');
         if (ticketID) {
-            ticketIDDisplay.textContent = `Ticket ID: ${ticketID}`;
+            document.getElementById('ticketID').textContent = ticketID;
         } else {
-            ticketIDDisplay.textContent = "Ticket ID not found.";
+            document.getElementById('ticketID').textContent = "No Ticket ID Found";
         }
-
-        // Redirect back to the homepage
-        document.getElementById('backToHome').addEventListener('click', () => {
-            window.location.href = "index.html";
-        });
     </script>
 </body>
 </html>
